@@ -1,0 +1,28 @@
+{
+  "name": "@rbcministries/cdk-patterns",
+  "version": "0.0.1",
+  "description": "Reusable CDK Patterns by Our Daily Bread",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "exit 0",
+    "build": "tsc",
+    "prepublish": "tsc"
+  },
+  "publishConfig": {
+    "@rbcministries:registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rbcministries/cdk-patterns.git"
+  },
+  "types": "dist/index.d.ts",
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rbcministries/cdk-patterns/issues"
+  },
+  "homepage": "https://github.com/rbcministries/cdk-patterns#readme",
+  "devDependencies": {
+    "typescript": "^4.6.3"
+  }
+}
