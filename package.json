@@ -37,5 +37,6 @@
     "aws-cdk-lib": "^2.19.0",
     "constructs": "^10.0.105",
     "path": "^0.12.7"
-  }
+  },
+  "type": "module"
 }
