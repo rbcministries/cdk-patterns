@@ -1,0 +1,29 @@
+{
+  "name": "odbx-get-country-headers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "odbxGetCountryHeaders.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.758.0",
+    "tz-offset": "0.0.2"
+  },
+  "targets": {
+    "cdk-lambda": {
+      "context": "node",
+      "includeNodeModules": {
+        "aws-sdk": false
+      },
+      "sourceMap": false,
+      "minify": false,
+      "engines": {
+        "node": ">= 12"
+      }
+    }
+  }
+}
