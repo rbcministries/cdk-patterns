@@ -1,6 +1,6 @@
 {
   "name": "@rbcministries/cdk-patterns",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Reusable CDK Patterns by Our Daily Bread",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
