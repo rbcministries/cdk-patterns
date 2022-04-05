@@ -3,10 +3,11 @@
   "version": "0.1.2",
   "description": "Reusable CDK Patterns by Our Daily Bread",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "exit 0",
-    "build": "tsc",
-    "prepublish": "tsc"
+    "build": "tsc && cp -R wordpress-cache-policies/lambda dist/wordpress-cache-policies/lambda",
+    "prepublish": "tsc && cp -R wordpress-cache-policies/lambda dist/wordpress-cache-policies/lambda"
   },
   "publishConfig": {
     "@rbcministries:registry": "https://npm.pkg.github.com"
@@ -15,7 +16,6 @@
     "type": "git",
     "url": "git+https://github.com/rbcministries/cdk-patterns.git"
   },
-  "types": "dist/index.d.ts",
   "author": "",
   "license": "ISC",
   "bugs": {
@@ -35,8 +35,8 @@
     "@aws-cdk/aws-lambda-nodejs": "^1.151.0",
     "@aws-cdk/core": "^1.151.0",
     "aws-cdk-lib": "^2.19.0",
+    "axios": "^0.26.1",
     "constructs": "^10.0.105",
     "path": "^0.12.7"
-  },
-  "type": "module"
+  }
 }
