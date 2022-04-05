@@ -6,8 +6,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "exit 0",
-    "build": "tsc && cp -R wordpress-cache-policies/lambda dist/wordpress-cache-policies/lambda",
-    "prepublish": "tsc && cp -R wordpress-cache-policies/lambda dist/wordpress-cache-policies/lambda"
+    "build": "tsc && cp -R wordpress-cache-policies/lambda dist/wordpress-cache-policies/lambda && cd wordpress-cache-policies/lambda/countryTimezoneHeaders/ && npm i",
+    "prepublish": "npm run build"
   },
   "publishConfig": {
     "@rbcministries:registry": "https://npm.pkg.github.com"
