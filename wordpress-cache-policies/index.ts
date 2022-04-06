@@ -33,6 +33,9 @@ export interface WPCachePolicies {
 	noCachePolicy: CachePolicy;
 	defaultCachePolicy: CachePolicy;
 }
+
+import crypto from 'crypto';
+
 const wordpressCookies = [
 	'comment_author_*',
 	'jetpack*',
@@ -59,27 +62,31 @@ let edgeFunction: NodejsFunction;
 
 const getEdgeFunction = (name: string, scope: Construct) => {
 	if (!edgeFunction) {
-		edgeFunction = new NodejsFunction(scope, name + 'WpEdge', {
-			entry: path.resolve(__dirname, `lambda/${name}/${name}.js`),
-			handler: 'handler',
-			// depsLockFilePath: path.resolve(__dirname, `lambda/${name}/package-lock.json`)`,
-			logRetention: RetentionDays.ONE_MONTH,
-			awsSdkConnectionReuse: false,
-			functionName: name + 'wpEdgeFn',
-			description: 'Deployed on: ' + new Date().toISOString(),
-			memorySize: 128,
-			role: new iam.Role(scope, 'AllowLambdaServiceToAssumeRole' + name, {
-				assumedBy: new iam.CompositePrincipal(
-					new iam.ServicePrincipal('lambda.amazonaws.com'),
-					new iam.ServicePrincipal('edgelambda.amazonaws.com')
-				),
-				managedPolicies: [
-					ManagedPolicy.fromAwsManagedPolicyName(
-						'service-role/AWSLambdaBasicExecutionRole'
+		edgeFunction = new NodejsFunction(
+			scope,
+			name + 'WpEdge' + crypto.randomUUID(),
+			{
+				entry: path.resolve(__dirname, `lambda/${name}/${name}.js`),
+				handler: 'handler',
+				// depsLockFilePath: path.resolve(__dirname, `lambda/${name}/package-lock.json`)`,
+				logRetention: RetentionDays.ONE_MONTH,
+				awsSdkConnectionReuse: false,
+				functionName: name + 'wpEdgeFn',
+				description: 'Deployed on: ' + new Date().toISOString(),
+				memorySize: 128,
+				role: new iam.Role(scope, 'AllowLambdaServiceToAssumeRole' + name, {
+					assumedBy: new iam.CompositePrincipal(
+						new iam.ServicePrincipal('lambda.amazonaws.com'),
+						new iam.ServicePrincipal('edgelambda.amazonaws.com')
 					),
-				],
-			}),
-		});
+					managedPolicies: [
+						ManagedPolicy.fromAwsManagedPolicyName(
+							'service-role/AWSLambdaBasicExecutionRole'
+						),
+					],
+				}),
+			}
+		);
 	}
 
 	return edgeFunction;
