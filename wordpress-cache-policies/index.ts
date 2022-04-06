@@ -65,7 +65,7 @@ const getEdgeFunction = (name: string, scope: Construct) => {
 		functionName: name + 'wpEdgeFn',
 		description: 'Deployed on: ' + new Date().toISOString(),
 		memorySize: 128,
-		role: new iam.Role(scope, 'AllowLambdaServiceToAssumeRole', {
+		role: new iam.Role(scope, 'AllowLambdaServiceToAssumeRole' + name, {
 			assumedBy: new iam.CompositePrincipal(
 				new iam.ServicePrincipal('lambda.amazonaws.com'),
 				new iam.ServicePrincipal('edgelambda.amazonaws.com')
