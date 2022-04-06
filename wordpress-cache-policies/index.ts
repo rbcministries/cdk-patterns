@@ -55,28 +55,34 @@ const wordPressHeaders = [
 	'Origin',
 ];
 
+let edgeFunction: NodejsFunction;
+
 const getEdgeFunction = (name: string, scope: Construct) => {
-	return new NodejsFunction(scope, name + 'WpEdge', {
-		entry: path.resolve(__dirname, `lambda/${name}/${name}.js`),
-		handler: 'handler',
-		// depsLockFilePath: path.resolve(__dirname, `lambda/${name}/package-lock.json`)`,
-		logRetention: RetentionDays.ONE_MONTH,
-		awsSdkConnectionReuse: false,
-		functionName: name + 'wpEdgeFn',
-		description: 'Deployed on: ' + new Date().toISOString(),
-		memorySize: 128,
-		role: new iam.Role(scope, 'AllowLambdaServiceToAssumeRole' + name, {
-			assumedBy: new iam.CompositePrincipal(
-				new iam.ServicePrincipal('lambda.amazonaws.com'),
-				new iam.ServicePrincipal('edgelambda.amazonaws.com')
-			),
-			managedPolicies: [
-				ManagedPolicy.fromAwsManagedPolicyName(
-					'service-role/AWSLambdaBasicExecutionRole'
+	if (!edgeFunction) {
+		edgeFunction = new NodejsFunction(scope, name + 'WpEdge', {
+			entry: path.resolve(__dirname, `lambda/${name}/${name}.js`),
+			handler: 'handler',
+			// depsLockFilePath: path.resolve(__dirname, `lambda/${name}/package-lock.json`)`,
+			logRetention: RetentionDays.ONE_MONTH,
+			awsSdkConnectionReuse: false,
+			functionName: name + 'wpEdgeFn',
+			description: 'Deployed on: ' + new Date().toISOString(),
+			memorySize: 128,
+			role: new iam.Role(scope, 'AllowLambdaServiceToAssumeRole' + name, {
+				assumedBy: new iam.CompositePrincipal(
+					new iam.ServicePrincipal('lambda.amazonaws.com'),
+					new iam.ServicePrincipal('edgelambda.amazonaws.com')
 				),
-			],
-		}),
-	});
+				managedPolicies: [
+					ManagedPolicy.fromAwsManagedPolicyName(
+						'service-role/AWSLambdaBasicExecutionRole'
+					),
+				],
+			}),
+		});
+	}
+
+	return edgeFunction;
 };
 
 const getBehaviors = (scope: Construct, origin: IOrigin) => {
