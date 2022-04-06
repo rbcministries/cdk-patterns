@@ -1,12 +1,12 @@
 {
   "name": "@rbcministries/cdk-patterns",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Reusable CDK Patterns by Our Daily Bread",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "exit 0",
-    "build": "tsc && cp -R wordpress-cache-policies/lambda dist/wordpress-cache-policies/lambda && cd wordpress-cache-policies/lambda/countryTimezoneHeaders/ && npm i",
+    "build": "tsc && cd wordpress-cache-policies/lambda/countryTimezoneHeaders/ && npm i",
     "prepublish": "npm run build"
   },
   "publishConfig": {
