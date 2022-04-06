@@ -6,7 +6,7 @@
   "types": "index.d.ts",
   "scripts": {
     "test": "exit 0",
-    "build": "tsc && cd wordpress-cache-policies/lambda/countryTimezoneHeaders/ && npm i",
+    "build": "tsc && cd wordpress-cache-policies/lambda/countryTimezoneHeaders/ && npm i && cd ../../..",
     "prepublish": "npm run build"
   },
   "publishConfig": {
