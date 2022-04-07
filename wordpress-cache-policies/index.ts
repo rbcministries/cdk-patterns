@@ -71,7 +71,7 @@ const getEdgeFunction = (name: string, scope: Construct) => {
 				// depsLockFilePath: path.resolve(__dirname, `lambda/${name}/package-lock.json`)`,
 				logRetention: RetentionDays.ONE_MONTH,
 				awsSdkConnectionReuse: false,
-				functionName: name + 'wpEdgeFn',
+				functionName: name + 'WpEdge' + crypto.randomUUID(),
 				description: 'Deployed on: ' + new Date().toISOString(),
 				memorySize: 128,
 				role: new iam.Role(scope, 'AllowLambdaServiceToAssumeRole' + name, {
